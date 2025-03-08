@@ -142,7 +142,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-100 to-green-100 py-8">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-center text-blue-800">Premier League Games</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center text-blue-800">Premier League Games </h1>
 
         <div className="mb-6 flex justify-center">
           <MatchdaySelector
