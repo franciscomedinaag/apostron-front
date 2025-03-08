@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import GameList from "../components/GameList"
 import GameDetails from "../components/GameDetails"
+import MatchdaySelector from "../components/MatchdaySelector"
 import type { Game } from "../types"
 
 const games: Game[] = [
@@ -16,6 +17,7 @@ const games: Game[] = [
     score: "2 - 1",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 1,
   },
   {
     id: 2,
@@ -27,6 +29,7 @@ const games: Game[] = [
     score: "0 - 0",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 1,
   },
   {
     id: 3,
@@ -38,6 +41,7 @@ const games: Game[] = [
     score: "3 - 2",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 1,
   },
   {
     id: 4,
@@ -49,6 +53,7 @@ const games: Game[] = [
     score: "4 - 1",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 2,
   },
   {
     id: 5,
@@ -60,6 +65,7 @@ const games: Game[] = [
     score: "2 - 0",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 2,
   },
   {
     id: 6,
@@ -71,6 +77,7 @@ const games: Game[] = [
     score: "1 - 1",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 2,
   },
   {
     id: 7,
@@ -82,6 +89,7 @@ const games: Game[] = [
     score: "2 - 2",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 3,
   },
   {
     id: 8,
@@ -93,12 +101,27 @@ const games: Game[] = [
     score: "0 - 1",
     homeTeamLogo: "/placeholder.svg?height=50&width=50",
     awayTeamLogo: "/placeholder.svg?height=50&width=50",
+    matchday: 3,
   },
 ]
 
 export default function Home() {
   const [selectedGame, setSelectedGame] = useState<Game | null>(null)
+  const [selectedMatchday, setSelectedMatchday] = useState<number | null>(null)
   const gameDetailsRef = useRef<HTMLDivElement>(null)
+
+  // Get unique matchdays from games
+  const matchdays = Array.from(new Set(games.map((game) => game.matchday))).sort((a, b) => a - b)
+
+  // Set default matchday on initial load
+  useEffect(() => {
+    if (matchdays.length > 0 && selectedMatchday === null) {
+      setSelectedMatchday(matchdays[0])
+    }
+  }, [matchdays, selectedMatchday])
+
+  // Filter games by selected matchday
+  const filteredGames = selectedMatchday !== null ? games.filter((game) => game.matchday === selectedMatchday) : games
 
   const handleGameSelect = (game: Game) => {
     setSelectedGame(game)
@@ -111,12 +134,26 @@ export default function Home() {
     }
   }
 
+  const handleMatchdayChange = (matchday: number) => {
+    setSelectedMatchday(matchday)
+    setSelectedGame(null) // Reset selected game when changing matchday
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-100 to-green-100 py-8">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold mb-8 text-center text-blue-800">Soccer Games</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center text-blue-800">Premier League Games</h1>
+
+        <div className="mb-6 flex justify-center">
+          <MatchdaySelector
+            matchdays={matchdays}
+            selectedMatchday={selectedMatchday}
+            onMatchdayChange={handleMatchdayChange}
+          />
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-8 justify-center">
-          <GameList games={games} onSelectGame={handleGameSelect} />
+          <GameList games={filteredGames} onSelectGame={handleGameSelect} />
           <div ref={gameDetailsRef} className="w-full lg:w-[600px]">
             <GameDetails game={selectedGame} />
           </div>

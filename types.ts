@@ -8,5 +8,5 @@ export interface Game {
   score: string
   homeTeamLogo: string
   awayTeamLogo: string
+  matchday: number
 }
-
