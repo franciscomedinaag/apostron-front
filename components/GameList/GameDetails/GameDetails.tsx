@@ -1,5 +1,4 @@
-import Image from "next/image"
-import type { Game } from "../types"
+import type { Game, GameDetails } from "../../../types"
 import MatchInformation from "./MatchInformation"
 import AdditionalInformation from "./AdditionalInformation"
 
@@ -8,6 +7,7 @@ interface GameDetailsProps {
 }
 
 export default function GameDetails({ game }: GameDetailsProps) {
+  
   if (!game) {
     return (
       <div className="bg-white shadow-lg rounded-lg p-8 h-[calc(100vh-200px)] w-full">

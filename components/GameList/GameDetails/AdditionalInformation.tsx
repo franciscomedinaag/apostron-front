@@ -1,15 +1,58 @@
-import type { Game } from "../types"
+import type { Game, GameDetails } from "../../../types"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { useEffect, useState } from "react"
+import { fetchGameDetails } from "@/services/api"
+import Spinner from "@/components/ui/spinner"
 
 interface AdditionalInformationProps {
   game: Game
 }
 
 export default function AdditionalInformation({ game }: AdditionalInformationProps) {
+  const [gameDetails, setGameDetails] = useState<GameDetails | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function loadGameDetails() {
+      if (!game) {
+        setGameDetails(null)
+        return
+      }
+
+      setIsLoading(true)
+      setError(null)
+
+      try {
+        const details = await fetchGameDetails(game.id)
+        console.log("gameDetails: ", gameDetails)
+        setGameDetails(details)
+      } catch (err) {
+        setError("Failed to load game details. Please try again.")
+        console.error(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadGameDetails()
+  }, [game])
+
   return (
     <div>
       <h3 className="text-xl font-semibold mb-4 text-blue-700">Predictions</h3>
-      <Accordion type="single" collapsible className="w-full">
+
+      { isLoading ?
+          <div className="flex items-center justify-center">
+            <Spinner/>
+            <p className="ml-2 text-center text-gray-500 text-xl">Loading game details...</p>
+          </div>
+      : error ?
+        <div className="flex items-center justify-center">
+          <p className="text-center text-red-500 text-xl">{error}</p>
+        </div>
+      : 
+        <Accordion type="single" collapsible className="w-full">
 
         <>
           {
@@ -170,7 +213,9 @@ export default function AdditionalInformation({ game }: AdditionalInformationPro
           </AccordionContent>
         </AccordionItem>
         
-      </Accordion>
+        </Accordion>
+      }
+      
     </div>
   )
 }
