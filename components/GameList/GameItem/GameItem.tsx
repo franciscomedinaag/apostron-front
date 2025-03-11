@@ -1,12 +1,12 @@
 import type { Game, GameDetails } from "../../../types"
-import MatchInformation from "./MatchInformation"
-import AdditionalInformation from "./AdditionalInformation"
+import MatchInformation from "./GameDetails/MatchInformation"
+import Predictions from "./GameDetails/Predictions"
 
-interface GameDetailsProps {
+interface GameItemProps {
   game: Game | null
 }
 
-export default function GameDetails({ game }: GameDetailsProps) {
+export default function GameItem({ game }: GameItemProps) {
   
   if (!game) {
     return (
@@ -32,7 +32,7 @@ export default function GameDetails({ game }: GameDetailsProps) {
       </div>
       <div className="grid grid-cols-1 gap-6">
         <MatchInformation game={game} />
-        <AdditionalInformation game={game} />
+        <Predictions game={game} />
       </div>
     </div>
   )

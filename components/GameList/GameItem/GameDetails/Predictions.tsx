@@ -1,14 +1,14 @@
-import type { Game, GameDetails } from "../../../types"
+import type { Game, GameDetails } from "../../../../types"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useEffect, useState } from "react"
 import { fetchGameDetails } from "@/services/api"
 import Spinner from "@/components/ui/spinner"
 
-interface AdditionalInformationProps {
+interface PredictionsProps {
   game: Game
 }
 
-export default function AdditionalInformation({ game }: AdditionalInformationProps) {
+export default function Predictions({ game }: PredictionsProps) {
   const [gameDetails, setGameDetails] = useState<GameDetails | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

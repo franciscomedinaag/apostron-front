@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import GameList from "../components/GameList/GameList"
-import GameDetails from "../components/GameList/GameDetails/GameDetails"
+import GameDetails from "../components/GameList/GameItem/GameItem"
 import MatchdaySelector from "../components/GameList/MatchdaySelector"
 import type { Game } from "../types"
 import { fetchGames } from "../services/api"
