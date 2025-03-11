@@ -18,7 +18,7 @@ export default function MatchInformation({ game }: MatchInformationProps) {
         <span className="font-semibold text-blue-600">Venue:</span> {game.venue}
       </p>
       <p className="mb-2">
-        <span className="font-semibold text-blue-600">Current Score:</span> {game.score}
+        <span className="font-semibold text-blue-600">Score:</span> {game.score}
       </p>
     </div>
   )
