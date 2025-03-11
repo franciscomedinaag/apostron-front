@@ -13,6 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link type="image/png" sizes="96x96" rel="icon" href="https://img.icons8.com/cotton/64/football-ball.png"/>
+      </head>
       <body>{children}</body>
     </html>
   )
