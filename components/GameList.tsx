@@ -19,25 +19,25 @@ export default function GameList({ games, onSelectGame }: GameListProps) {
           >
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center">
-                <Image
+                {/*<Image
                   src={game.homeTeamLogo || "/placeholder.svg"}
                   alt={game.homeTeam}
                   width={30}
                   height={30}
                   className="mr-2"
-                />
+                />*/}
                 <span className="font-semibold text-blue-800">{game.homeTeam}</span>
               </div>
               <span className="text-gray-600">vs</span>
               <div className="flex items-center">
                 <span className="font-semibold text-blue-800">{game.awayTeam}</span>
-                <Image
+                {/*<Image
                   src={game.awayTeamLogo || "/placeholder.svg"}
                   alt={game.awayTeam}
                   width={30}
                   height={30}
                   className="ml-2"
-                />
+                />*/}
               </div>
             </div>
             <div className="text-sm text-gray-600 mt-2">
