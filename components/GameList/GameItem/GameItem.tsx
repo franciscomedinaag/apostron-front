@@ -1,4 +1,4 @@
-import type { Game, GameDetails } from "../../../types"
+import type { Game } from "../../../types"
 import MatchInformation from "./GameDetails/MatchInformation"
 import Predictions from "./GameDetails/Predictions"
 

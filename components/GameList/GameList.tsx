@@ -1,4 +1,3 @@
-import Image from "next/image"
 import type { Game } from "../../types"
 
 interface GameListProps {
