@@ -3,7 +3,7 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface MatchdaySelectorProps {
-  matchdays: number[]
+  matchdays: any[]
   selectedMatchday: number | null
   onMatchdayChange: (matchday: number) => void
 }

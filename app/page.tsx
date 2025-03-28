@@ -9,9 +9,9 @@ import { fetchGames } from "../services/api"
 import Spinner from "../components/ui/spinner"
 
 export default function Home() {
-  const [games, setGames] = useState<Game[]>([])
+  const [games, setGames] = useState<any>([])
   const [selectedGame, setSelectedGame] = useState<Game | null>(null)
-  const [selectedMatchday, setSelectedMatchday] = useState<number | null>(null)
+  const [selectedMatchday, setSelectedMatchday] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const gameDetailsRef = useRef<HTMLDivElement>(null)
@@ -19,10 +19,13 @@ export default function Home() {
   useEffect(() => {
     async function loadGames() {
       try {
-        setIsLoading(true)
-        const fetchedGames = await fetchGames()
-        setGames(fetchedGames)
-        setError(null)
+        const getGames = async () => {
+          setIsLoading(true)
+          const fetchedGames = await fetchGames();
+          setGames(fetchedGames)
+          setError(null)
+        }
+        getGames()
       } catch (err) {
         setError("Failed to load games. Please try again later.")
       } finally {
@@ -33,33 +36,29 @@ export default function Home() {
     loadGames()
   }, [])
 
-  // Get unique matchdays from games
-  const matchdays = Array.from(new Set(games.map((game) => game.matchday))).sort((a, b) => a - b)
+  const matchdays = Array.from(new Set(games.map((game:any) => game.matchday))).sort((a:any, b:any) => a - b)
 
-  // Set default matchday on initial load
   useEffect(() => {
     if (matchdays.length > 0 && selectedMatchday === null) {
       setSelectedMatchday(matchdays[0])
     }
   }, [matchdays, selectedMatchday])
 
-  // Filter games by selected matchday
-  const filteredGames = selectedMatchday !== null ? games.filter((game) => game.matchday === selectedMatchday) : games
+  const filteredGames = selectedMatchday !== null ? games.filter((game:any) => game.matchday === selectedMatchday.toString()) : games
 
   const handleGameSelect = (game: Game) => {
     setSelectedGame(game)
 
-    // Check if the screen width is less than 1024px (lg breakpoint in Tailwind)
     if (window.innerWidth < 1024) {
       setTimeout(() => {
         gameDetailsRef.current?.scrollIntoView({ behavior: "smooth" })
-      }, 100) // Small delay to ensure the DOM has updated
+      }, 100)
     }
   }
 
   const handleMatchdayChange = (matchday: number) => {
     setSelectedMatchday(matchday)
-    setSelectedGame(null) // Reset selected game when changing matchday
+    setSelectedGame(null)
   }
 
   if (isLoading) {
