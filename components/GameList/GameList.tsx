@@ -1,16 +1,9 @@
-import type { Game } from "../../types"
-
-interface GameListProps {
-  games: any[]
-  onSelectGame: (game: Game) => void
-}
-
-export default function GameList({ games, onSelectGame }: GameListProps) {
+export default function GameList({ games, onSelectGame }: any) {
   return (
     <div className="w-full lg:w-[400px]">
       <h2 className="text-2xl font-semibold mb-4 text-blue-700">Upcoming Games</h2>
       <ul className="space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto pr-4">
-        {games.map((game) => (
+        {games.map((game:any) => (
           <li
             key={game.gameId}
             className="bg-white shadow-lg rounded-lg p-4 cursor-pointer hover:bg-blue-50 transition-colors border-l-4 border-blue-500"
@@ -28,7 +21,7 @@ export default function GameList({ games, onSelectGame }: GameListProps) {
               {
                 game.resultInfo !== "Not Played" && (
                   <span className="inline-block bg-blue-100 rounded-full px-2 py-1 text-s font-semibold text-blue-700 ml-3">
-                    CONCLUDED
+                    {game.score}
                   </span>
                 )
               }

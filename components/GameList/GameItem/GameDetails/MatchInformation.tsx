@@ -1,10 +1,5 @@
-import type { Game } from "@/types"
 
-interface MatchInformationProps {
-  game: Game
-}
-
-export default function MatchInformation({ game }: MatchInformationProps) {
+export default function MatchInformation({ game }: any) {
   return (
     <div>
       <h3 className="text-xl font-semibold mb-4 text-blue-700">Match Information</h3>
