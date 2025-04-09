@@ -4,13 +4,12 @@ import { useState, useRef, useEffect } from "react"
 import GameList from "../components/GameList/GameList"
 import GameDetails from "../components/GameList/GameItem/GameItem"
 import MatchdaySelector from "../components/GameList/MatchdaySelector"
-import type { Game } from "../types"
 import { fetchGames } from "../services/api"
 import Spinner from "../components/ui/spinner"
 
 export default function Home() {
   const [games, setGames] = useState<any>([])
-  const [selectedGame, setSelectedGame] = useState<Game | null>(null)
+  const [selectedGame, setSelectedGame] = useState<any | null>(null)
   const [selectedMatchday, setSelectedMatchday] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -46,7 +45,7 @@ export default function Home() {
 
   const filteredGames = selectedMatchday !== null ? games.filter((game:any) => game.matchday === selectedMatchday.toString()) : games
 
-  const handleGameSelect = (game: Game) => {
+  const handleGameSelect = (game: any) => {
     setSelectedGame(game)
 
     if (window.innerWidth < 1024) {
