@@ -92,3 +92,8 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: green;
+}

@@ -60,7 +60,7 @@ export default function Predictions({ game }: any) {
   }
 
   const getPredictionColor = (winning:any) => {
-    // return winning === true && "text-blue-600"
+   return winning === true && "text-green-600"
   }
 
   return (
